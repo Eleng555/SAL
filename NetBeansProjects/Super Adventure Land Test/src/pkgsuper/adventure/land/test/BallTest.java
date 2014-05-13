@@ -15,9 +15,11 @@ import java.awt.event.KeyListener;
  * @author Emily Leng
  */
 public class BallTest extends Applet implements Runnable, KeyListener{
-    Ball b,b2;
-    Platform p;
+    private Ball b,b2;
+    private Platform p;
+    private KeepTime t;
     private Image i;
+    static Thread thread1;
     private Graphics doubleBuffer;
     
     @Override
@@ -32,7 +34,8 @@ public class BallTest extends Applet implements Runnable, KeyListener{
         b = new Ball();
         b2 = new Ball(250,250);
         p = new Platform();
-        Thread thread1 = new Thread(this); //this refers to the run method defined below
+        t = new KeepTime(60);
+        thread1 = new Thread(this); //this refers to the run method defined below
         thread1.start();
     }
     
@@ -44,6 +47,7 @@ public class BallTest extends Applet implements Runnable, KeyListener{
             b.update(this);
             b2.update(this);
             p.update(this);
+            t.update(this);
             repaint();
             try{ //if it can't sleep print an exception
             Thread.sleep(17); //repaints about 64 frames per second, sleep for 17 milliseconds
@@ -94,6 +98,12 @@ public class BallTest extends Applet implements Runnable, KeyListener{
                     break;
                 case KeyEvent.VK_RIGHT:
                     b.moveRight();
+                    break;
+                case KeyEvent.VK_UP:
+                    b.moveUp();
+                    break;
+                case KeyEvent.VK_DOWN:
+                    b.moveDown();
                     break;
         }
     }

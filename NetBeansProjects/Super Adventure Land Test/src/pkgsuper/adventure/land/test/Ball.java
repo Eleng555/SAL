@@ -21,7 +21,7 @@ public class Ball {
     private int dx = 0;
     private int dy = 0;
     private double gravity = 16;
-    private double energyLoss = 1;
+    private double energyLoss = .9;
     private double changeInTime = .2;
     private double xFriction = .95;
 
@@ -34,13 +34,23 @@ public class Ball {
     }
     
     public void moveRight(){
-        if (dx+1 < 20)
-        dx += 1;
+        if (dx+2 < 30)
+        dx += 2;
     }
     
     public void moveLeft(){
-        if (dx-1 > -20)
-            dx -= 1;
+        if (dx-2 > -30)
+            dx -= 2;
+    }
+    
+    public void moveUp(){
+        if (dy+2 < 30)
+        dy *= 1.7;
+    }
+    
+    public void moveDown(){
+        if (dy-2 > -30)
+            dy -= .5;
     }
     
     public void update(BallTest t){
@@ -66,6 +76,10 @@ public class Ball {
             if (y > t.getHeight() - radius - 1){
                 y = t.getHeight() - radius - 1;
                 dy *= energyLoss;
+                dy = -dy;
+            }
+            else if (y < 0 + radius + 1){
+                y = radius + 1;
                 dy = -dy;
             }
             else {
