@@ -1,0 +1,44 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package pkgsuper.adventure.land.test;
+
+import java.awt.Color;
+import java.awt.Graphics;
+
+/**
+ *
+ * @author eleng6
+ */
+public class KeepTime {
+    private Integer secs;
+    private long delay = 1000;
+    
+    public KeepTime() {
+    }
+    
+    public KeepTime(int i){
+        secs = new Integer(i);
+        
+    }
+    
+    
+
+    public void paint(Graphics g){
+        g.setColor(Color.BLACK);
+        g.drawString("Time Left:", 10, 10);
+        g.drawString(secs.toString(), 40, 10);
+        if (secs.intValue() > 0)
+        secs = new Integer(secs.intValue() - 1);
+        else if (secs.intValue() == 0)
+        secs = new Integer(0);
+    }
+    
+    public void update(BallTest t){
+        
+            } 
+    
+}
