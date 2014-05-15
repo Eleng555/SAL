@@ -45,7 +45,7 @@ public class KeepTime {
         if (secs.intValue()==0)
         secs = new Integer(0);
             
-        else if ((currentTime-timePass) >= 983 && (currentTime-timePass) <= 1017){
+        else if ((currentTime - timePass) >= 983 && (currentTime - timePass) <= 1017){
         secs = new Integer(secs.intValue() - 1);
         timePass = currentTime;
         currentTime = System.currentTimeMillis();
