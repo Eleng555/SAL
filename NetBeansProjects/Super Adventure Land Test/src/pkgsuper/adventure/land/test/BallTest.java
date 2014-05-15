@@ -14,7 +14,7 @@ import java.awt.event.KeyListener;
  *
  * @author Emily Leng
  */
-public class BallTest extends Applet implements Runnable, KeyListener{
+public class BallTest extends Applet implements Runnable, KeyListener{ 
     private Ball b,b2;
     private Platform p;
     private KeepTime t;

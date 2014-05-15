@@ -40,7 +40,7 @@ public class KeepTime {
         
     }
     
-    public void update(BallTest t){
+    public void update(BallTest t){ 
         currentTime = System.currentTimeMillis();
         if (secs.intValue()==0)
         secs = new Integer(0);

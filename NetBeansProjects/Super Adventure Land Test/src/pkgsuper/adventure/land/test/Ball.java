@@ -14,7 +14,7 @@ import java.awt.Graphics;
  *
  * @author Emily Leng
  */
-public class Ball {
+public class Ball { 
     private int x = 400;
     private int y = 25;
     private int radius = 20;

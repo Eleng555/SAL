@@ -18,7 +18,7 @@ public class Platform {
     private int x, y, width, height;
 
     public Platform() {
-    dx = -10;
+    dx = -10; 
     x = 300;
     y = 300;
     width = 120;
