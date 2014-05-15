@@ -88,6 +88,7 @@ public class BallTest extends Applet implements Runnable, KeyListener{
         b.paint(g);
         b2.paint(g);
         p.paint(g);
+        t.paint(g);
     }
     
     @Override
