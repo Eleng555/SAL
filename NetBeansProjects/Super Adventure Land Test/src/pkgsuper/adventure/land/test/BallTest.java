@@ -49,7 +49,7 @@ public class BallTest extends Applet implements Runnable, KeyListener{
             p.update(this);
             t.update(this);
             repaint();
-            try{ //if it can't sleep print an exception
+            try{ //if it can't sleep, print an exception
             Thread.sleep(17); //repaints about 64 frames per second, sleep for 17 milliseconds
             }
             catch (InterruptedException e){
