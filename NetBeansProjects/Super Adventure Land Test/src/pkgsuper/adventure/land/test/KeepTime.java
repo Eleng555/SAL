@@ -36,20 +36,21 @@ public class KeepTime {
         //long timePass=System.currentTimeMillis();
         g.setColor(Color.BLACK);
         g.drawString("Time Left:", 10, 15);
-        g.drawString(secs.toString(), 70, 15);
+        g.drawString(secs.toString(), 75, 15);
         
     }
     
     public void update(BallTest t){
         currentTime = System.currentTimeMillis();
-       // if ((currentTime-timePass)== 1000){
+        if (secs.intValue()==0)
+        secs = new Integer(0);
+            
+        else if ((currentTime-timePass) >= 983 && (currentTime-timePass) <= 1017){
         secs = new Integer(secs.intValue() - 1);
         timePass = currentTime;
         currentTime = System.currentTimeMillis();
-        //} 
-        //else if (secs.intValue()==0)
-        //secs = new Integer(0);
-            }
+        } 
+    }
     
     public static void main (String[] args){
         for (int ind = 0; ind < 5; ind++){

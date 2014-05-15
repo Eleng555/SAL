@@ -85,11 +85,9 @@ public class Ball {
             else {
                 dy += gravity * changeInTime; //velocity formula
                 y += dy * changeInTime + .5*gravity*changeInTime*changeInTime; //physics equation for position
-            
             }
-            
-    }
-    
+}
+
     public void paint(Graphics g){
         g.setColor(Color.CYAN);
         g.fillOval(x-radius,y-radius,radius*2,radius*2);

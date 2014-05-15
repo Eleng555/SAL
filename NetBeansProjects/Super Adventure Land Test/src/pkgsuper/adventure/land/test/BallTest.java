@@ -34,7 +34,7 @@ public class BallTest extends Applet implements Runnable, KeyListener{
         b = new Ball();
         b2 = new Ball(250,250);
         p = new Platform();
-        t = new KeepTime(60);
+        t = new KeepTime(10);
         thread1 = new Thread(this); //this refers to the run method defined below
         thread1.start();
     }
