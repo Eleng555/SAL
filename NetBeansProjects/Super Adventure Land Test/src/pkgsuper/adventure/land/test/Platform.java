@@ -35,13 +35,15 @@ public class Platform {
     }
     
     public void update(BallTest t, Ball b){
-        x += dx;
+        //x += dx;
         checkForCollision(b);
+        /*
         //if the platform scrolls off to map to the left, reposition at right with random y coordinate
         if (x < 0 - width){ 
             Random r = new Random();
             x = t.getWidth() + r.nextInt(300);
-        }    
+                
+        }    */
     }
     
     public void paint(Graphics g){

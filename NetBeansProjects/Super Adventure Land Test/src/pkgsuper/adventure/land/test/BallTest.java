@@ -16,7 +16,7 @@ import java.util.Random;
  */
 public class BallTest extends Applet implements Runnable, KeyListener{ 
     private Ball b,b2;
-    private Platform p [] = new Platform[7]; //array of 7 platforms for game
+    private Platform p [] = new Platform[5]; //array of 7 platforms for game
     private KeepTime t;
     private Image i;
     static Thread thread1;
@@ -35,7 +35,7 @@ public class BallTest extends Applet implements Runnable, KeyListener{
         //b2 = new Ball(250,250);
         for (int i = 0; i < p.length; i++){ //randomly places the 7 platforms
             Random r = new Random();
-            p[i] = new Platform(getWidth() + 200 * i, getHeight() - 40 - r.nextInt(400));
+            p[i] = new Platform(150 * i, getHeight() - 40 - r.nextInt(400));
         }
         
         t = new KeepTime(10);
