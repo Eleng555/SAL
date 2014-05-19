@@ -15,4 +15,5 @@ public interface Item{
     public void function();//This method determines what the Item object does
     public String showName();
     public void setImage();//This method sets the image 
+    
 }
