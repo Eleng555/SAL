@@ -1,0 +1,18 @@
+package pkgsuper.adventure.land.test;
+
+/**
+ *
+ * @author mmurali6
+ */
+public interface Actions {
+    
+    public void jump();
+    public void walk();
+    public void attack(Ball target, int strength); 
+    public void getHealth();
+    public void interact();
+    
+    
+    
+    
+}
