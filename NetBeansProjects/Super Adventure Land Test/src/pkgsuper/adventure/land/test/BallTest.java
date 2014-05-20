@@ -5,18 +5,19 @@
 
 package pkgsuper.adventure.land.test;
 import java.applet.Applet;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Random;
 /**
  *
  * @author Emily Leng
  */
-public class BallTest extends Applet implements Runnable, KeyListener{ 
-    private Ball b,b2;
-    private Platform p [] = new Platform[5]; //array of 7 platforms for game
+public class BallTest extends Applet implements Runnable, KeyListener{
+    private Character b,b2;
+    private Platform p;
     private KeepTime t;
     private Image i;
     static Thread thread1;
@@ -27,18 +28,16 @@ public class BallTest extends Applet implements Runnable, KeyListener{
     public void init() {
         setSize(800, 600); //sets window size
         addKeyListener(this);
+        setMaximumSize(new Dimension(800, 600));
+        setMinimumSize(new Dimension(800, 600));
     }
 
     //called after init method
     public void start() {
-        b = new Ball();
-        //b2 = new Ball(250,250);
-        for (int i = 0; i < p.length; i++){ //randomly places the 7 platforms
-            Random r = new Random();
-            p[i] = new Platform(150 * i, getHeight() - 40 - r.nextInt(400));
-        }
-        
-        t = new KeepTime(10);
+        b = new Character();
+        //b2 = new Ball(250,250, 75, 0, 0);
+        p = new Platform();
+        t = new KeepTime(60);
         thread1 = new Thread(this); //this refers to the run method defined below
         thread1.start();
     }
@@ -49,13 +48,11 @@ public class BallTest extends Applet implements Runnable, KeyListener{
         //thread information
         while(true){ //restrict x and y to be within window size, bonces off walls
             b.update(this);
-            //b2.update(this);
-            for (int i = 0; i < p.length; i++){
-                p[i].update(this, b);
-            }
+           // b2.update(this);
+            p.update(this);
             t.update(this);
             repaint();
-            try{ //if it can't sleep, print an exception
+            try{ //if it can't sleep print an exception
             Thread.sleep(17); //repaints about 64 frames per second, sleep for 17 milliseconds
             }
             catch (InterruptedException e){
@@ -93,10 +90,7 @@ public class BallTest extends Applet implements Runnable, KeyListener{
     public void paint(Graphics g) { //prints cyan circle
         b.paint(g);
         //b2.paint(g);
-        for (int i = 0; i < p.length; i++){
-                p[i].paint(g);
-            }
-        t.paint(g);
+        p.paint(g);
     }
     
     @Override
@@ -108,12 +102,12 @@ public class BallTest extends Applet implements Runnable, KeyListener{
                 case KeyEvent.VK_RIGHT:
                     b.moveRight();
                     break;
-                /*case KeyEvent.VK_UP:
+                case KeyEvent.VK_UP:
                     b.moveUp();
                     break;
                 case KeyEvent.VK_DOWN:
                     b.moveDown();
-                    break;*/
+                    break;
         }
     }
 
@@ -130,3 +124,4 @@ public class BallTest extends Applet implements Runnable, KeyListener{
     
     
     }
+
