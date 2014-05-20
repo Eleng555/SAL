@@ -14,20 +14,23 @@ import java.awt.Graphics;
  * @author eleng6
  */
 public class HealthBar {
-    private Integer secs;
-    private final int total;
-    private long timePass;
-    private long currentTime;
+    private final Integer health;
+    private Character ch;
+    private double amountRed;
+    private final int width, height;
     
     public HealthBar() {
-        total=0;
-        timePass = System.currentTimeMillis();
+        width = 100; 
+        height = 50;
+        health = new Integer(0);
+        ch = new Character();
     }
     
-    public HealthBar(int health){
-        secs = new Integer(health);
-        total = health;
-        timePass = System.currentTimeMillis();
+    public HealthBar(Character c){
+        width = 100;
+        height = 50;
+        ch = c;
+        health = new Integer(c.getHealth());
     }
     
     
@@ -35,32 +38,19 @@ public class HealthBar {
     public void paint(Graphics g){
         //long timePass=System.currentTimeMillis();
         g.setColor(Color.BLACK);
-        g.drawString("Time Left:", 10, 15);
-        g.drawString(secs.toString(), 75, 15);
+        g.drawString("Health:", 625, 15);
+        g.drawString(ch.getHealth().toString()+ " / " + health.toString(), 650, 15);
+        g.setColor(Color.GREEN);
+        g.drawRect(675,15,width,height);
+        g.setColor(Color.RED);
+        g.drawRect(675,15,amountRed, height);
         
     }
     
-    public void update(BallTest t){ 
-        currentTime = System.currentTimeMillis();
-        if (secs.intValue()==0)
-        secs = new Integer(0);
-            
-        else if ((currentTime - timePass) >= 983 && (currentTime - timePass) <= 1017){
-        secs = new Integer(secs.intValue() - 1);
-        timePass = currentTime;
-        currentTime = System.currentTimeMillis();
+    public void update(Map t){ 
+        amountRed = ((1-((double)ch.getHealth()/health))*width);
         } 
-    }
     
-    public static void main (String[] args){
-        for (int ind = 0; ind < 5; ind++){
-        System.out.println(System.currentTimeMillis());
-        try{
-        Thread.sleep(1000);}
-        catch (InterruptedException e){
-                e.printStackTrace();
-            }
-        }
     }
+      
     
-}
