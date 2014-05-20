@@ -58,7 +58,7 @@ public class Platform {
         int radius = b.getRadius();
         
         //checks if ball is within platform, if yes, reposition to above and reverse direction
-        if (ballY + radius > y && ballY + radius < y + height){ 
+        if ((ballX>=x||ballX<=x+width||ballX+b.getRadius()>=x||ballX+b.getRadius()<=x+width)){ 
             if (ballX > x && ballX < x + width){
             double newDy = b.getGameDy();
             b.setY(y-radius);
