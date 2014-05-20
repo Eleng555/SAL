@@ -14,48 +14,64 @@ import java.awt.Graphics;
  *
  * @author Emily Leng
  */
-public class Ball { 
+public class Character {
     private int x = 400;
     private int y = 25;
     private int radius = 20;
-    private double dx = 0;
-    private double dy = 0;
-    private double gameDy = -75;
-    private double gravity = 16;
-    private double energyLoss = 1;
-    private double changeInTime = .2;
+    private int dx = 0;
+    private int dy = 0;
+    private double gravity = 50;
+    private double energyLoss = .95;
+    private double changeInTime = .1;
     private double xFriction = .95;
+    private int attack;
+    private int health;
+    private int currentHealth=0;
 
-    public Ball() {
+    public Character() {
     }
     
-    
-    
-    public Ball(int i, int j) {
+    public Character(int i, int j, int g, int a, int h) {
         x = i;
         y = j;
+        gravity = g;
+        attack = a;
+        health = h;
     }
     
     public void moveRight(){
         if (dx+2 < 30)
-        dx += 2;
+        {
+          dx += 2;
+          dy= 0; 
+        }
     }
     
     public void moveLeft(){
         if (dx-2 > -30)
+        {
             dx -= 2;
+            dy=0;
+        }
+        
     }
-    /*
+    
     public void moveUp(){
-        if (dy+2 < 30)
-        dy *= 1.7;
+        if (dy+2 < 120)
+        {
+            dy *= 3;
+            dx=0;
+        }
     }
     
     public void moveDown(){
-        if (dy-2 > -30)
-            dy -= .5;
+        if (dy-2 > -120)
+        {
+            dy -= 1;
+            dx=0;
+        }
     }
-    */
+    
     public void update(BallTest t){
         if (x + dx > t.getWidth() - radius - 1){
                 x = t.getWidth() - radius - 1;
@@ -79,21 +95,22 @@ public class Ball {
             if (y > t.getHeight() - radius - 1){
                 y = t.getHeight() - radius - 1;
                 dy *= energyLoss;
-                dy = gameDy;
+                dy = -dy;
             }
-            /*
             else if (y < 0 + radius + 1){
                 y = radius + 1;
                 dy = -dy;
-            }*/
+            }
             else {
                 dy += gravity * changeInTime; //velocity formula
                 y += dy * changeInTime + .5*gravity*changeInTime*changeInTime; //physics equation for position
+            
             }
-}
-
+            
+    }
+    
     public void paint(Graphics g){
-        g.setColor(Color.CYAN);
+        g.setColor(Color.RED);
         g.fillOval(x-radius,y-radius,radius*2,radius*2);
            
     }
@@ -114,19 +131,19 @@ public class Ball {
         this.y = y;
     }
 
-    public double getDx() {
+    public int getDx() {
         return dx;
     }
 
-    public void setDx(double dx) {
+    public void setDx(int dx) {
         this.dx = dx;
     }
 
-    public double getDy() {
+    public int getDy() {
         return dy;
     }
 
-    public void setDy(double dy) {
+    public void setDy(int dy) {
         this.dy = dy;
     }
 
@@ -145,21 +162,15 @@ public class Ball {
     public void setGravity(double gravity) {
         this.gravity = gravity;
     }
-
-    public int getRadius() {
-        return radius;
-    }
-
-    public double getGameDy() {
-        return gameDy;
-    }
-
-    public void setGameDy(double gameDy) {
-        this.gameDy = gameDy;
-    }
     
+    public int getHealth()
+    {
+        return currentHealth;
+    }
     
     
     }
    
+
+
 
