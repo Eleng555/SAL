@@ -36,6 +36,7 @@ public class Platform {
     
     public void update(BallTest t, Ball b){
         //x += dx;
+        
         checkForCollision(b);
         /*
         //if the platform scrolls off to map to the left, reposition at right with random y coordinate
@@ -58,13 +59,19 @@ public class Platform {
         int radius = b.getRadius();
         
         //checks if ball is within platform, if yes, reposition to above and reverse direction
-        if ((ballX>=x||ballX<=x+width||ballX+b.getRadius()>=x||ballX+b.getRadius()<=x+width)){ 
-            if (ballX > x && ballX < x + width){
+        if ((ballX>=x&&ballX<=x+width)&&(ballY+b.getRadius()*2<=y)) 
+            {
             double newDy = b.getGameDy();
             b.setY(y-radius);
             b.setDy(newDy);
             }
+        else if((ballX>=x&&ballX<=x+width)&&(ballY>=y+height)){
+                    double newDy = b.getGameDy();
+            b.setY(y+radius);
+            b.setDy(-newDy);
+                    }
         }
         
     }
-}
+
+//((ballX>=x&&ballX<=x+width)||(ballX+b.getRadius()*2>=x&&ballX+b.getRadius()*2<=x+width))&&((ballY>=y&&ballY<=y+height)||(ballY+b.getRadius()*2>=y&&ballY+b.getRadius()*2<=y+height))
