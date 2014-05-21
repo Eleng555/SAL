@@ -1,0 +1,55 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pkgsuper.adventure.land.test;
+import java.applet.Applet;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+
+
+/**
+ *
+ * @author mmurali6
+ */
+public class Map2 extends Applet {
+    private Graphics g;
+    private Image i;
+
+    public void init() {
+        setSize(1000, 500); //sets window size
+    }
+    
+    public void init(Color c)
+    {
+        setSize(800, 600);
+        setBackground(c);
+        
+    }
+     public void update(Graphics g) { //double buffering, prevents flickering when painting
+        if(i == null){
+            i = createImage(this.getSize().width, this.getSize().height);
+            g = i.getGraphics();
+        }
+        g.setColor(Color.yellow);
+        g.fillRect(0,0,this.getSize().width,this.getSize().height);
+        //doubleBuffer.setColor(getForeground());
+        addPlatform(g, 200, 200);
+        paint(g);
+        g.drawImage(i, 0, 0, this);
+        
+    }
+     
+     
+     public void addPlatform(Graphics g, int xVal, int yVal)
+     {
+         Platform a= new Platform(g, xVal, yVal);
+         a.paint(g);
+         repaint();
+         
+     }
+    
+}
