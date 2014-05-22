@@ -16,41 +16,39 @@ import java.awt.Graphics;
 public class HealthBar {
     private final Integer health;
     private Character ch;
-    private double amountRed;
     private final int width, height;
+    private double amountRed;
     
     public HealthBar() {
-        width = 100; 
-        height = 50;
         health = new Integer(0);
         ch = new Character();
+        width = 100;
+        height = 50;
     }
     
     public HealthBar(Character c){
-        width = 100;
-        height = 50;
-        ch = c;
         health = new Integer(c.getHealth());
+        ch = c;
+        width = 150;
+        height = 25;
     }
     
     
 
     public void paint(Graphics g){
         //long timePass=System.currentTimeMillis();
-        g.setColor(Color.BLACK);
-        g.drawString("Health:", 625, 15);
-        g.drawString(ch.getHealth().toString()+ " / " + health.toString(), 650, 15);
+        g.setColor(Color.WHITE);
+        g.drawString("Health:", 590, 20);
         g.setColor(Color.GREEN);
-        g.drawRect(675,15,width,height);
+        g.fillRect(640, 10, width, height);
         g.setColor(Color.RED);
-        g.drawRect(675,15,amountRed, height);
-        
+        g.fillRect(640, 10, (int) (amountRed * width), height);
     }
     
     public void update(Map t){ 
-        amountRed = ((1-((double)ch.getHealth()/health))*width);
-        } 
-    
+        amountRed = (1-((double)ch.getHealth()/health));
+         
     }
-      
     
+    
+}
