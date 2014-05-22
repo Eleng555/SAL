@@ -34,44 +34,36 @@ public class Platform {
         dx = -5;
     }
     
-    public void update(BallTest t, Ball b){
+    public void update(Map t, Character b){
         //x += dx;
-        
         checkForCollision(b);
-        /*
-        //if the platform scrolls off to map to the left, reposition at right with random y coordinate
-        if (x < 0 - width){ 
-            Random r = new Random();
-            x = t.getWidth() + r.nextInt(300);
-                
-        }    */
+        
     }
     
     public void paint(Graphics g){
-        g.setColor(Color.BLUE);
+        g.setColor(Color.WHITE);
         g.fillRect(x, y, width, height);
         //g.drawRect(x,y,width,height); 
     }
 
-    private void checkForCollision(Ball b) {
+    private void checkForCollision(Character b) {
         int ballX = b.getX();
         int ballY = b.getY();
         int radius = b.getRadius();
         
-        //checks if ball is within platform, if yes, reposition to above and reverse direction
-        if ((ballX>=x&&ballX<=x+width)&&(ballY+b.getRadius()*2<=y)) 
-            {
-            double newDy = b.getGameDy();
-            b.setY(y-radius);
-            b.setDy(newDy);
-            }
-        else if((ballX>=x&&ballX<=x+width)&&(ballY>=y+height)){
-                    double newDy = b.getGameDy();
-            b.setY(y+radius);
-            b.setDy(-newDy);
-                    }
-        }
+        //checks if ball is within platform, if yes, reposition and reverse direction
+        
+        if (ballX + radius >= x && ballX - radius <= x + width && ballY + radius > y && ballY + radius < y + height/2){
+            double newDy = b.getDy();
+            b.setY(y-radius-1);
+            b.setDy((int)-newDy);
+    }
+        else if (ballX + radius >= x && ballX - radius <= x + width && ballY - radius > y + height/2 && ballY - radius < y + height){
+            double newDy = b.getDy();
+            b.setY(y+height+radius);
+            b.setDy((int)-newDy);
+    
+    }
         
     }
-
-//((ballX>=x&&ballX<=x+width)||(ballX+b.getRadius()*2>=x&&ballX+b.getRadius()*2<=x+width))&&((ballY>=y&&ballY<=y+height)||(ballY+b.getRadius()*2>=y&&ballY+b.getRadius()*2<=y+height))
+}
