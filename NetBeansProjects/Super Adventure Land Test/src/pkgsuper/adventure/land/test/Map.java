@@ -21,10 +21,12 @@ import java.util.Random;
     
 
 public class Map extends Applet implements Runnable, KeyListener{ 
-    private Character c;
-    private Platform p [] = new Platform[5]; //array of 7 platforms for game
+    private static Character c;
+    private Platform p [] = new Platform[4]; //array of 4 platforms for game
     private KeepTime t;
     private Image i;
+    private LevelLabel l;
+    private HealthBar h;
     static Thread thread1;
     private Graphics doubleBuffer;
     
@@ -38,12 +40,14 @@ public class Map extends Applet implements Runnable, KeyListener{
 
     //called after init method
     public void start() {
+        c = new Character();
         for (int i = 0; i < p.length; i++){ //randomly places the 7 platforms
             Random r = new Random();
-            p[i] = new Platform(150 * i, getHeight() - 40 - r.nextInt(400));
+            p[i] = new Platform(200 * i, getHeight() - 40 - r.nextInt(400));
         }
-        
-        t = new KeepTime(10);
+        h = new HealthBar(c);
+        t = new KeepTime(60);
+        l = new LevelLabel("#");
         thread1 = new Thread(this); //this refers to the run method defined below
         thread1.start();
     }
@@ -53,10 +57,11 @@ public class Map extends Applet implements Runnable, KeyListener{
     public void run() {
         //thread information
         while(true){ //restrict x and y to be within window size, bonces off walls
-
+            c.update(this);
             for (int i = 0; i < p.length; i++){
                 p[i].update(this, c);
             }
+            h.update(this);
             t.update(this);
             repaint();
             try{ //if it can't sleep, print an exception
@@ -98,26 +103,46 @@ public class Map extends Applet implements Runnable, KeyListener{
         for (int i = 0; i < p.length; i++){
                 p[i].paint(g);
             }
+        l.paint(g);
+        h.paint(g);
         t.paint(g);
+        c.paint(g);
     }
     
     @Override
     public void keyPressed(KeyEvent e){
         switch(e.getKeyCode()){ //KeyCode returns int of key pressed
                 case KeyEvent.VK_LEFT: //left arrow key
+                    c.moveLeft();
                     break;
                 case KeyEvent.VK_RIGHT:
+                    c.moveRight();
                     break;
-                /*case KeyEvent.VK_UP:
+                case KeyEvent.VK_UP:
+                    c.moveUp();
                     break;
                 case KeyEvent.VK_DOWN:
-                    break;*/
+                    c.moveDown();
+                    break;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-    
+    switch(e.getKeyCode()){
+        case KeyEvent.VK_LEFT:
+            c.setDx(0);
+            break;
+        case KeyEvent.VK_RIGHT:
+            c.setDx(0);
+            break;
+        case KeyEvent.VK_UP:
+            c.setDy(0);
+            break;
+        case KeyEvent.VK_DOWN:
+            c.setDy(0);
+            break;
+        }
     }
 
     @Override
