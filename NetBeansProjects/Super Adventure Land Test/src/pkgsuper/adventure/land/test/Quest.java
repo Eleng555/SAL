@@ -6,11 +6,17 @@
 
 package pkgsuper.adventure.land.test;
 
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
 /**
  *
  * @author vrangan6
  */
-public class Quest {
+public class Quest implements MouseMotionListener{
     String description;
     int xCoordinate;
     int yCoordinate;
@@ -23,12 +29,39 @@ public class Quest {
     
     }
     
-    public void paint(){
-        
+    public void paint(Graphics g){
+        g.setColor(Color.WHITE);
+        g.drawString(description, xCoordinate, yCoordinate);
     }
+    
+    public void remove(Graphics g){
+        g.clearRect(xCoordinate, yCoordinate, 700, 500);
     }
     
-    
-    
-    
+    public void mouseClicked(MouseEvent evt){
+        int x = evt.getX();
+        int y = evt.getY();
 
+        if (evt.getClickCount() >= 2) {
+          
+        }
+    }
+    
+    public void mouseMoved(MouseEvent evt) {
+    int x = evt.getX();
+    int y = evt.getY();
+
+    
+    if (true)
+      return;
+    else
+      return;
+  }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    }
+    
