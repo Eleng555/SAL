@@ -22,7 +22,7 @@ public class Platform {
     dx = -5; 
     x = 300;
     y = 300;
-    width = 120;
+    width = 100;
     height = 40;
     }
     
@@ -41,7 +41,7 @@ public class Platform {
     }
     
     public void paint(Graphics g){
-        g.setColor(Color.WHITE);
+        g.setColor(Color.YELLOW);
         g.fillRect(x, y, width, height);
         //g.drawRect(x,y,width,height); 
     }
@@ -52,8 +52,12 @@ public class Platform {
         int radius = b.getRadius();
         
         //checks if ball is within platform, if yes, reposition and reverse direction
-        
-        if (ballX + radius >= x && ballX - radius <= x + width && ballY + radius > y && ballY + radius < y + height/2){
+        if (ballX + radius >= x && ballX - radius <= x + width && ballY + radius > y+height/3 && ballY + radius < y + 2*height/3){
+            double newDy = b.getDy();
+            b.setY(y-radius-1);
+            b.setDy((int)-newDy);
+    }
+        else if (ballX + radius >= x && ballX - radius <= x + width && ballY + radius > y && ballY + radius < y + height/2){
             double newDy = b.getDy();
             b.setY(y-radius-1);
             b.setDy((int)-newDy);
