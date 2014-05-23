@@ -34,18 +34,18 @@ public class KeepTime {
 
     public void paint(Graphics g){
         //long timePass=System.currentTimeMillis();
-        g.setColor(Color.BLACK);
-        g.drawString("Time Left:", 10, 15);
-        g.drawString(secs.toString(), 75, 15);
+        g.setColor(Color.WHITE);
+        g.drawString("Time Left:", 15, 25);
+        g.drawString(secs.toString(), 75, 25);
         
     }
     
-    public void update(BallTest t){ 
+    public void update(Map t){ 
         currentTime = System.currentTimeMillis();
         if (secs.intValue()==0)
         secs = new Integer(0);
             
-        else if ((currentTime - timePass) >= 983 && (currentTime - timePass) <= 1017){
+        else if ((currentTime - timePass) >= 984 && (currentTime - timePass) <= 1016){
         secs = new Integer(secs.intValue() - 1);
         timePass = currentTime;
         currentTime = System.currentTimeMillis();
