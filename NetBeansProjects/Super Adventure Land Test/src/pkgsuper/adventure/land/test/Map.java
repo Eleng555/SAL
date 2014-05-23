@@ -65,7 +65,7 @@ public class Map extends Applet implements Runnable, KeyListener{
             t.update(this);
             repaint();
             try{ //if it can't sleep, print an exception
-            Thread.sleep(17); //repaints about 64 frames per second, sleep for 17 milliseconds
+            Thread.sleep(16); //repaints about 64 frames per second, sleep for 17 milliseconds
             }
             catch (InterruptedException e){
                 e.printStackTrace();
