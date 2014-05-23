@@ -20,14 +20,15 @@ public class Quest implements MouseMotionListener{
     String description;
     int xCoordinate;
     int yCoordinate;
-    
+    boolean completed;
     
     public Quest(String s, int x, int y){
     description=s;
     yCoordinate=y;
     xCoordinate=x;
-    
+    completed=false;
     }
+    
     
     public void paint(Graphics g){
         g.setColor(Color.WHITE);
@@ -42,7 +43,7 @@ public class Quest implements MouseMotionListener{
         int x = evt.getX();
         int y = evt.getY();
 
-        if (evt.getClickCount() >= 2) {
+        if (x>=) {
           
         }
     }
