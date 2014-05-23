@@ -27,12 +27,16 @@ public class LevelOne extends Map {
         int ctr = 0;
         int num = 0;
         for (int i = 0; i < plat.length; i++){ 
-            if (ctr < 6)
+            if (ctr == 0)
+                plat[i] = new StartPlatform(100 * num, getHeight() - 40);
+            else if (ctr < 6)
                 plat[i] = new Platform(100 * num, getHeight() - 40);
             else if (ctr < 12)
                 plat[i] = new Platform(100 * num + 200, getHeight() - 190);
             else if (ctr < 18)
                 plat[i] = new Platform(100 * num, getHeight() - 340);
+            else if (ctr == 24)
+                plat[i] = new ExitPlatform(100 * num + 200, getHeight() - 490);
             else
                 plat[i] = new Platform(100 * num + 200, getHeight() - 490);
             ctr++;
