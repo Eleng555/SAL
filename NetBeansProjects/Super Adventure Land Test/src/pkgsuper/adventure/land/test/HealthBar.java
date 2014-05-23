@@ -38,7 +38,7 @@ public class HealthBar {
     public void paint(Graphics g){
         //long timePass=System.currentTimeMillis();
         g.setColor(Color.WHITE);
-        g.drawString("Health:", 590, 20);
+        g.drawString("Health:", 590, 25);
         g.setColor(Color.GREEN);
         g.fillRect(640, 10, width, height);
         g.setColor(Color.RED);
