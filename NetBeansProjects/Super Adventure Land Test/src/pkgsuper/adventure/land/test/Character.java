@@ -1,80 +1,72 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * and open the template in the editor
  */
 
 package pkgsuper.adventure.land.test;
 
-import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
  * @author Emily Leng
  */
-public class Character extends Applet{
+public class Character {
     private int x = 400;
     private int y = 25;
-    private int radius = 15;
-    private int dx = 1;
-    private int dy = 1;
+    private int radius = 20;
+    private int dx = 0;
+    private int dy = 0;
     private double gravity = 50;
-    private double energyLoss = 1;
-    private double changeInTime = .1;
+    private double energyLoss = .95;
+    private double changeInTime = .04;
     private double xFriction = .95;
-    private final int upMAX = radius;
-    private boolean fin = true;
     private int attack;
     private int health;
     private int currentHealth=0;
-    //private final String filename = "Resources//stickRun.gif";  
-    private Image chara;  
-    
+
     public Character() {
-       
     }
     
-    public Character(int i, int j, double g, int a, int h) {
+    public Character(int i, int j, int g, int a, int h) {
         x = i;
         y = j;
         gravity = g;
         attack = a;
         health = h;
-        //java.net.URL appletBaseURL = getCodeBase();
-        //chara = getImage(appletBaseURL, filename);
     }
     
     public void moveRight(){
-        if (dx+2 < 30)
+        if (dx+2 < 25)
         {
-          dx += 1;
+          dx += 3;
+          dy= 0; 
         }
     }
     
     public void moveLeft(){
-        if (dx-2 > -30)
+        if (dx-2 > -25)
         {
-            dx -= 1;
+            dx -= 3;
+            dy=0;
         }
         
     }
     
     public void moveUp(){
-        
-    }   
-    public void moveDown(){
-        if (dy-2 > -120)
+        if (dy+2 < 10)
         {
-            dy -= 1;
+            dy *= 1.02;
+            dx=0;
+        }
+    }
+    
+    public void moveDown(){
+        if (dy-2 > -10)
+        {
+            dy -= 3;
             dx=0;
         }
     }
@@ -101,6 +93,7 @@ public class Character extends Applet{
             
             if (y > t.getHeight() - radius - 1){
                 y = t.getHeight() - radius - 1;
+                dy *= energyLoss;
                 dy = -dy;
             }
             else if (y < 0 + radius + 1){
@@ -108,7 +101,6 @@ public class Character extends Applet{
                 dy = -dy;
             }
             else {
-                dy *= energyLoss;
                 dy += gravity * changeInTime; //velocity formula
                 y += dy * changeInTime + .5*gravity*changeInTime*changeInTime; //physics equation for position
             
@@ -116,11 +108,10 @@ public class Character extends Applet{
             
     }
     
-    
     public void paint(Graphics g){
         g.setColor(Color.RED);
         g.fillOval(x-radius,y-radius,radius*2,radius*2);
-        //g.drawImage(chara, 50, 100, 28, 28, this);
+           
     }
 
     public int getX() {
