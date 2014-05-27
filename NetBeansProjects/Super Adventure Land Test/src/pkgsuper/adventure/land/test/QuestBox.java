@@ -19,34 +19,53 @@ public class QuestBox extends Platform{
     private int x, y, width, height;
     private Character ch;
     private boolean collide = false, passable = true;
-
+    private int id;
+    private boolean activation;
     public QuestBox() {
     dx = -5; 
     x = 300;
     y = 300;
     width = 75;
     height = 110;
+    id=0;
+    activation=false;
     }
     
-    public QuestBox(int x, int y, Character c){
+    public QuestBox(int x, int y, Character c,int i){
         this.x = x;
         this.y = y;
         width = 75;
         height = 110;
         dx = -5;
         ch = c;
+        id=i;
+        activation=false;
     }
     
     public void paint(Graphics g){
         g.setColor(Color.GREEN);
-        g.clearRect(x,y,width,height); 
+        g.fillRect(x,y,width,height);
+        if(activation==true){
+            for(Quest q:LevelOne.getQuests()){
+                if(q.getId()==this.getId())
+                    q.paint(g);
+            }
+        }
+            
     }
-    
+    public void deactivate(){
+        activation=false;
+        
+    }
     public void update(Map m, Character ch){
         super.update(m,ch);
         if (checkForCollision(ch)){
+            activation=true;
             ch.setDx(0);
         }
+    }
+    public int getId(){
+        return id;
     }
     
     public boolean checkForCollision(Character c){
