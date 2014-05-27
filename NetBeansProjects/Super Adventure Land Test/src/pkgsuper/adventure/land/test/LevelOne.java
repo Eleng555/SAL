@@ -47,7 +47,7 @@ public class LevelOne extends Map {
             
         }
         
-        t = new KeepTime(5);
+        t = new KeepTime(60);
         h = new HealthBar(c1);
         l = new LevelLabel("1");
         thread1 = new Thread(this); //this refers to the run method defined below
