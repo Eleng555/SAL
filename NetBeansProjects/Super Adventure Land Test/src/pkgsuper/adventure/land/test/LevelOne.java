@@ -1,5 +1,5 @@
 /*
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -20,24 +20,32 @@ import static pkgsuper.adventure.land.test.Map.thread1;
 public class LevelOne extends Map {
     private Character c1;
     private Platform plat [] = new Platform[24]; //array of 28 platforms for game
-    private QuestBox q [] = new QuestBox[5];
-    private ArrayList<Quest> quests = new ArrayList<Quest>();
+    private static QuestBox q [] = new QuestBox[5];
+    private static ArrayList<Quest> quests = new ArrayList<Quest>();
     private KeepTime t;
     private HealthBar h;
     private LevelLabel l;
+    private int currentQuest=0;
+    private int sleepNumber=10;
+    public static ArrayList<Quest> getQuests(){
+            return quests;
+        }
+    public static QuestBox[] getBoxes(){
+        return q;
+    } 
     public void questMaker(){
      
         for(int ind=0;ind<5;ind++){
             if (ind == 0)
-               quests.add(new Quest("How many sides does a Enneadecagon have?", 25, 25));
+               quests.add(new Quest("How many sides does a Enneadecagon have?", 25, 50,1));
            else if(ind == 1)
-               quests.add(new Quest("You are in a cabin and it is pitch black. You have one match on you. Which do you light first, the newspaper, the lamp, the candle or the fire?", 25, 25));
+               quests.add(new Quest("You are in a cabin and it is pitch black.\n You have one match on you.\n Which do you light first, the newspaper, the lamp,\n the candle or the fire?", 25, 50,2));
            else if (ind == 2)
-               quests.add(new Quest("Imagine you are in a room, no doors windows or anything, how do you get out?", 25, 25));
+               quests.add(new Quest("Imagine you are in a room, no doors windows or anything,\n how do you get out?", 25, 50,3));
            else if (ind == 3)
-               quests.add(new Quest("What was Java called before it was Java?", 25, 25));
+               quests.add(new Quest("What was Java called before it was Java?", 25, 50,4));
            else if (ind == 4)
-               quests.add(new Quest("Given two hex values, 2E and A4, what is the decimal value when they are added?", 25, 25));
+               quests.add(new Quest("Given two hex values, 2E and A4,\n what is the decimal value when they are added?", 25, 50,5));
             
         }
 
@@ -69,15 +77,15 @@ public class LevelOne extends Map {
         //makes five QuestBoxes
         for (int i = 0; i < 5; i++){
             if (i == 0)
-                q[i] = new QuestBox(100 * i + 500, getHeight() - 600, c1);
+                q[i] = new QuestBox(100 * i + 500, getHeight() - 600, c1,1);
             else if (i == 1)
-                q[i] = new QuestBox(100 * i + 200, getHeight() - 150, c1);
+                q[i] = new QuestBox(100 * i + 200, getHeight() - 150, c1,2);
             else if (i == 2)
-                q[i] = new QuestBox(100 * i + 300, getHeight() - 300, c1);
+                q[i] = new QuestBox(100 * i + 300, getHeight() - 300, c1,3);
             else if (i == 3)
-                q[i] = new QuestBox(100 * i - 50, getHeight() - 450, c1);
+                q[i] = new QuestBox(100 * i - 50, getHeight() - 450, c1,4);
             else if (i == 4)
-                q[i] = new QuestBox(100 * i + 120, getHeight() - 450, c1);
+                q[i] = new QuestBox(100 * i + 120, getHeight() - 450, c1,5);
         }
         
         //makes an ArrayList of five Quests
@@ -109,9 +117,13 @@ public class LevelOne extends Map {
             
             t.update(this);
             h.update(this);
+            
+            
+            if(t.getSecs()==0)
+                sleepNumber=Integer.MAX_VALUE;
             repaint();
             try{ //if it can't sleep, print an exception
-            Thread.sleep(17); //repaints about 64 frames per second, sleep for 17 milliseconds
+            Thread.sleep(sleepNumber); //repaints about 64 frames per second, sleep for 17 milliseconds
             }
             catch (InterruptedException e){
                 e.printStackTrace();
@@ -130,12 +142,10 @@ public class LevelOne extends Map {
         t.paint(g);
         c1.paint(g);
         l.paint(g);
-        int ctr = 0;
-        if (ctr == 0 && q[ctr].checkForCollision(c1)){
-                quests.get(ctr).paint(g);
+        
             }
         //add for other quests
-    }
+    
     
     public void keyPressed(KeyEvent e){
         switch(e.getKeyCode()){ //KeyCode returns int of key pressed
