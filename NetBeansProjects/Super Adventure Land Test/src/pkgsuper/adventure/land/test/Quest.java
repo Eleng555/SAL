@@ -25,21 +25,29 @@ public class Quest implements MouseMotionListener{
     private int yCoordinate;
     private TextField input = new TextField(50);
     private String [] answers = {"jamesgosling", "19", "thematch", "stopimagining", "oak", "210"};
+    private boolean completed=false;
+    private int id;
     
-    
-    public Quest(String s, int x, int y){
+    public Quest(String s, int x, int y, int z){
     description=s;
     yCoordinate=y;
     xCoordinate=x;
-    
+    id=z;
     }
-    
+    public int getId(){
+        
+        return id;
+    }
   
     
     public void paint(Graphics g){
         g.setColor(Color.WHITE);
         g.drawString(description, xCoordinate, yCoordinate);
         
+    }
+    public void update(int x,Graphics g ){
+        if(x==id)
+            paint(g);
     }
     
     public void remove(Graphics g){
@@ -66,6 +74,10 @@ public class Quest implements MouseMotionListener{
       return;
   }
 
+    public boolean isCompleted(){
+        return completed;
+        
+    }
     @Override
     public void mouseDragged(MouseEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -74,9 +86,15 @@ public class Quest implements MouseMotionListener{
     public boolean isCorrect(String s){
         for (String answer : answers){
             if (answer.equals(s))
+                completed=true;
+            for(QuestBox q:LevelOne.getBoxes()){
+                if(this.getId()==q.getId())
+                    q.deactivate();
+                    
+            }
                 return true;
         }
         return false;
     }
-    }
     
+    }
