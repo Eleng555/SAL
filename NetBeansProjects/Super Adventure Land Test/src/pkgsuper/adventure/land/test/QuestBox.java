@@ -14,6 +14,7 @@ import java.awt.Graphics;
  * @author Emily Leng
  */
 public class QuestBox extends Platform{
+    
     private int dx;
     private int x, y, width, height;
     private Character ch;
@@ -38,8 +39,7 @@ public class QuestBox extends Platform{
     
     public void paint(Graphics g){
         g.setColor(Color.GREEN);
-        g.fillRect(x, y, width, height);
-        //g.drawRect(x,y,width,height); 
+        g.clearRect(x,y,width,height); 
     }
     
     public void update(Map m, Character ch){
@@ -55,12 +55,16 @@ public class QuestBox extends Platform{
         int radius = c.getRadius();
         if (passable){
         //checks if ball is within platform, if yes, reposition and reverse direction
-        if (ballX + radius  >= x && ballX - radius <= x + width && ballY >= y && ballY + radius + radius <= y + height ){
+        if (ballX + radius  >= x && ballX <= x + width/2 && ballY >= y && ballY + radius + radius <= y + height ){
             double newDx = c.getDx();
             if (c.getDx () < 0)
-            c.setX(x + width + 1);
-            else if (c.getDx() > 0)
             c.setX(x - radius - 1);
+            c.setDx((int)-newDx);
+            collide = true;
+    }
+        if (ballX + radius  >= x + width/2 && ballX <= x + width && ballY >= y && ballY + radius + radius <= y + height ){
+            double newDx = c.getDx();
+            c.setX(x + radius + width + 1);
             c.setDx((int)-newDx);
             collide = true;
     }
