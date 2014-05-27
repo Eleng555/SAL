@@ -9,6 +9,7 @@ package pkgsuper.adventure.land.test;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+import java.util.ArrayList;
 import static pkgsuper.adventure.land.test.Map.thread1;
 
 /**
@@ -18,14 +19,17 @@ import static pkgsuper.adventure.land.test.Map.thread1;
 public class LevelOne extends Map {
     private Character c1;
     private Platform plat [] = new Platform[24]; //array of 28 platforms for game
+    private QuestBox q [] = new QuestBox[5];
+    private ArrayList<Quest> quests = new ArrayList<Quest>();
     private KeepTime t;
     private HealthBar h;
     private LevelLabel l;
     
     public void start() {
-        c1 = new Character();
+        c1 = new Character(getWidth() - 20,getHeight(),50,0,0);
         int ctr = 0;
         int num = 0;
+        //makes all the platforms for the map
         for (int i = 0; i < plat.length; i++){ 
             if (ctr == 0)
                 plat[i] = new StartPlatform(100 * num, getHeight() - 40);
@@ -44,6 +48,34 @@ public class LevelOne extends Map {
             if (num == 6)
                 num = 0;
             
+}
+        //makes five QuestBoxes
+        for (int i = 0; i < 5; i++){
+            if (i == 0)
+                q[i] = new QuestBox(100 * i + 500, getHeight() - 600, c1);
+            else if (i == 1)
+                q[i] = new QuestBox(100 * i + 200, getHeight() - 150, c1);
+            else if (i == 2)
+                q[i] = new QuestBox(100 * i + 300, getHeight() - 300, c1);
+            else if (i == 3)
+                q[i] = new QuestBox(100 * i - 50, getHeight() - 450, c1);
+            else if (i == 4)
+                q[i] = new QuestBox(100 * i + 120, getHeight() - 450, c1);
+        }
+        
+        //makes an ArrayList of five Quests
+        for (int ind = 0 ; ind < 5; ind++){
+           if (ind == 0)
+               quests.add(new Quest("How many sides does a Enneadecagon have?", 25, 25));
+           else if(ind == 1)
+               quests.add(new Quest("You are in a cabin and it is pitch black. You have one match on you. Which do you light first, the newspaper, the lamp, the candle or the fire?", 25, 25));
+           else if (ind == 2)
+               quests.add(new Quest("Imagine you are in a room, no doors windows or anything, how do you get out?", 25, 25));
+           else if (ind == 3)
+               quests.add(new Quest("What was Java called before it was Java?", 25, 25));
+           else if (ind == 4)
+               quests.add(new Quest("Given two hex values, 2E and A4, what is the decimal value when they are added?", 25, 25));
+           
         }
         
         t = new KeepTime(60);
@@ -60,6 +92,10 @@ public class LevelOne extends Map {
             for (int i = 0; i < plat.length; i++){
                 plat[i].update(this, c1);
             }
+            for (int i = 0; i < q.length; i++){
+                q[i].update(this, c1);
+            }
+            
             t.update(this);
             h.update(this);
             repaint();
@@ -76,10 +112,18 @@ public class LevelOne extends Map {
         for (int i = 0; i < plat.length; i++){
                 plat[i].paint(g);
             }
+        for (int i = 0; i < q.length; i++){
+                q[i].paint(g);
+            }
         h.paint(g);
         t.paint(g);
         c1.paint(g);
         l.paint(g);
+        int ctr = 0;
+        if (ctr == 0 && q[ctr].checkForCollision(c1)){
+                quests.get(ctr).paint(g);
+            }
+        //add for other quests
     }
     
     public void keyPressed(KeyEvent e){
@@ -101,19 +145,6 @@ public class LevelOne extends Map {
 
     @Override
     public void keyReleased(KeyEvent e) {
-    switch(e.getKeyCode()){
-        case KeyEvent.VK_LEFT:
-            c1.setDx(0);
-            break;
-        case KeyEvent.VK_RIGHT:
-            c1.setDx(0);
-            break;
-        case KeyEvent.VK_UP:
-            c1.setDy(0);
-            break;
-        case KeyEvent.VK_DOWN:
-            c1.setDy(0);
-            break;
-        }
+    
     }
 }
