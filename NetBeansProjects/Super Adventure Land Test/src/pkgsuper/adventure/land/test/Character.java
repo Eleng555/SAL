@@ -13,7 +13,7 @@ import java.awt.Graphics;
  *
  * @author Emily Leng
  */
-public class Character {
+public class Character implements Actions {
     private int x = 400;
     private int y = 25;
     private int radius = 20;
