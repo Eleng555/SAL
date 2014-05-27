@@ -73,10 +73,10 @@ public class KeepTime {
         }
     }
     
-//    public int getSecs()
-//    {
-//        return secs;
-//        
-//    }
+   public int getSecs()
+    {
+        return secs;
+        
+    }
     
 }
