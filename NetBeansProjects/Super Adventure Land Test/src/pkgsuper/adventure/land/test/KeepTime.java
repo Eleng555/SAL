@@ -1,4 +1,4 @@
-/*
+//*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -35,15 +35,24 @@ public class KeepTime {
     public void paint(Graphics g){
         //long timePass=System.currentTimeMillis();
         g.setColor(Color.WHITE);
-        g.drawString("Time Left:", 15, 25);
-        g.drawString(secs.toString(), 75, 25);
+        g.drawString("Time Left: ", 15, 25);
+        g.drawString(secs.toString(), 85, 25);
+        
+        if (secs.equals(0))
+        {
+            g.drawString("GAME OVER", 350, 350);
+        }
+        
         
     }
     
     public void update(Map t){ 
         currentTime = System.currentTimeMillis();
         if (secs.intValue()==0)
-        secs = new Integer(0);
+        {
+          secs = new Integer(0);
+        
+        }
             
         else if ((currentTime - timePass) >= 984 && (currentTime - timePass) <= 1016){
         secs = new Integer(secs.intValue() - 1);
@@ -55,6 +64,7 @@ public class KeepTime {
     public static void main (String[] args){
         for (int ind = 0; ind < 5; ind++){
         System.out.println(System.currentTimeMillis());
+
         try{
         Thread.sleep(1000);}
         catch (InterruptedException e){
@@ -62,5 +72,11 @@ public class KeepTime {
             }
         }
     }
+    
+//    public int getSecs()
+//    {
+//        return secs;
+//        
+//    }
     
 }
