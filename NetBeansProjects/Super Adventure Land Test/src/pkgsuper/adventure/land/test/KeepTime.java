@@ -1,4 +1,4 @@
-//*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -24,6 +24,9 @@ public class KeepTime {
         timePass = System.currentTimeMillis();
     }
     
+    /*
+    Initializes a timer of given seconds. Takes the current time it is made as the start time of the timer.
+    */
     public KeepTime(int i){
         secs = new Integer(i);
         total = i;
@@ -31,7 +34,9 @@ public class KeepTime {
     }
     
     
-
+    /*
+    Paints the timer.
+    */
     public void paint(Graphics g){
         //long timePass=System.currentTimeMillis();
         g.setColor(Color.WHITE);
@@ -46,6 +51,9 @@ public class KeepTime {
         
     }
     
+    /*
+    Decrements timer every second and updates the displayed time.
+    */
     public void update(Map t){ 
         currentTime = System.currentTimeMillis();
         if (secs.intValue()==0)
@@ -61,6 +69,7 @@ public class KeepTime {
         } 
     }
     
+
     public static void main (String[] args){
         for (int ind = 0; ind < 5; ind++){
         System.out.println(System.currentTimeMillis());
