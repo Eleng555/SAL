@@ -20,16 +20,21 @@ public class LevelLabel {
         l = "";
     }
     
+    /*
+    Creates a label to display what the current level is.
+    */
     public LevelLabel(String s){
         l = s;
     }
     
     
-
+    /*
+    Paints the label.
+    */
     public void paint(Graphics g){
         //long timePass=System.currentTimeMillis();
         g.setColor(Color.WHITE);
-        g.drawString("Level " + l, 370, 20);
+        g.drawString("Level " + l, 370, 25);
     }
     
     
