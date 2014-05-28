@@ -1,4 +1,4 @@
-/*
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import static pkgsuper.adventure.land.test.Map.thread1;
 
 /**
@@ -26,13 +27,17 @@ public class LevelOne extends Map {
     private HealthBar h;
     private LevelLabel l;
     private int currentQuest=0;
-    private int sleepNumber=10;
+    private int sleepNumber=9;
     public static ArrayList<Quest> getQuests(){
             return quests;
         }
     public static QuestBox[] getBoxes(){
         return q;
     } 
+    
+    /*
+    Creates all the quests.
+    */
     public void questMaker(){
      
         for(int ind=0;ind<5;ind++){
@@ -50,6 +55,8 @@ public class LevelOne extends Map {
         }
 
     }
+    
+    
     public void start() {
         c1 = new Character(getWidth() - 20,getHeight(),50,0,0);
         int ctr = 0;
@@ -77,27 +84,27 @@ public class LevelOne extends Map {
         //makes five QuestBoxes
         for (int i = 0; i < 5; i++){
             if (i == 0)
-                q[i] = new QuestBox(100 * i + 500, getHeight() - 600, c1,1);
+                q[i] = new QuestBox(100 * i + 200, getHeight() - 150, c1,1);
             else if (i == 1)
-                q[i] = new QuestBox(100 * i + 200, getHeight() - 150, c1,2);
+                q[i] = new QuestBox(100 * i + 300, getHeight() - 300, c1,2);
             else if (i == 2)
-                q[i] = new QuestBox(100 * i + 300, getHeight() - 300, c1,3);
+                q[i] = new QuestBox(100 * i + 220, getHeight() - 450, c1,3);
             else if (i == 3)
                 q[i] = new QuestBox(100 * i - 50, getHeight() - 450, c1,4);
-            else if (i == 4)
-                q[i] = new QuestBox(100 * i + 120, getHeight() - 450, c1,5);
+            else
+                q[i] = new QuestBox(100 * i + 150, getHeight() - 600, c1,5);
         }
         
         //makes an ArrayList of five Quests
         questMaker(); 
-        ArrayList<Quest> quests2 = new ArrayList<Quest>();
-        for (int ind = 0 ; ind < 5; ind++){
-           if (!(quests.get(ind).isCompleted()))
-               quests2.add(quests.get(ind));
-           
-        }
-        quests=quests2;
-        t = new KeepTime(60);
+//        ArrayList<Quest> quests2 = new ArrayList<Quest>();
+//        for (int ind = 0 ; ind < 5; ind++){
+//           if (!(quests.get(ind).isCompleted()))
+//               quests2.add(quests.get(ind));
+//           
+//        }
+//        quests=quests2;
+        t = new KeepTime(300);
         h = new HealthBar(c1);
         l = new LevelLabel("1");
         thread1 = new Thread(this); //this refers to the run method defined below
@@ -113,6 +120,31 @@ public class LevelOne extends Map {
             }
             for (int i = 0; i < q.length; i++){
                 q[i].update(this, c1);
+            }
+            String input = "";
+            ArrayList<Quest> q = getQuests();
+            QuestBox [] qu = getBoxes();
+            int i = 0, ctr = 0;
+            if (i < 5){
+                if(qu[i].checkForCollision(c1) && q.get(i).getId()==qu[i].getId()) {
+                    input = JOptionPane.showInputDialog(null, q.get(i).getDescription(), "Input an Answer, all lowercase, no spaces, or a number.", JOptionPane.QUESTION_MESSAGE);
+                    if (q.get(i).isCorrect(input)){
+                        if (i == 0 || i == 3 || i == 4)
+                            c1.setX(qu[i].getX() - c1.getRadius() - c1.getRadius() - 1);
+                        else 
+                            c1.setX(qu[i].getX() + qu[i].getWidth() + c1.getRadius() + c1.getRadius() + 1);
+                    q.remove(0);
+                    i++;
+                }
+                    else{
+                        if (i == 1 || i == 2 || i == 5)
+                                c1.setX(qu[i].getX() - c1.getRadius() - c1.getRadius() - 1);
+                            else 
+                                c1.setX(qu[i].getX() + qu[i].getWidth() + c1.getRadius() + c1.getRadius() + 1);
+                        
+                }
+                
+                }
             }
             
             t.update(this);
@@ -131,7 +163,8 @@ public class LevelOne extends Map {
         }
     }
     
-    public void paint(Graphics g) {
+
+        public void paint(Graphics g) {
         for (int i = 0; i < plat.length; i++){
                 plat[i].paint(g);
             }
