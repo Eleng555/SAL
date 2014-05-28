@@ -19,6 +19,9 @@ public class HealthBar {
     private final int width, height;
     private double amountRed;
     
+    /*
+    Initializes HealthBar with a width and height
+    */
     public HealthBar() {
         health = new Integer(0);
         ch = new Character();
@@ -26,6 +29,9 @@ public class HealthBar {
         height = 50;
     }
     
+    /*
+    Initializes HealthBar with the Character's health, and a width and height.
+    */
     public HealthBar(Character c){
         health = new Integer(c.getHealth());
         ch = c;
@@ -34,7 +40,9 @@ public class HealthBar {
     }
     
     
-
+    /*
+    Paints the HealthBar green for health, red for if health decreases.
+    */
     public void paint(Graphics g){
         //long timePass=System.currentTimeMillis();
         g.setColor(Color.WHITE);
@@ -45,6 +53,9 @@ public class HealthBar {
         g.fillRect(640, 10, (int) (amountRed * width), height);
     }
     
+    /*
+    Updates the HealthBar to change when health is lost.
+    */
     public void update(Map t){ 
         amountRed = (1-((double)ch.getHealth()/health));
          
