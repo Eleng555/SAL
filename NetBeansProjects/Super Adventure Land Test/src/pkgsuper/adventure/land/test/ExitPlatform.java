@@ -12,6 +12,9 @@ package pkgsuper.adventure.land.test;
  */
 public class ExitPlatform extends Platform{
 
+    /*
+    Last platform of the map, if the Character is on it, indicates it should move on to the next level.
+    */
     public ExitPlatform(int x, int y) {
         super(x,y);
     }
