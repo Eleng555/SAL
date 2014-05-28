@@ -19,7 +19,7 @@ import java.awt.event.MouseMotionListener;
  *
  * @author vrangan6
  */
-public class Quest implements MouseMotionListener{
+public class Quest{
     private String description;
     private int xCoordinate;
     private int yCoordinate;
@@ -28,73 +28,66 @@ public class Quest implements MouseMotionListener{
     private boolean completed=false;
     private int id;
     
-    public Quest(String s, int x, int y, int z){
-    description=s;
+    /*
+    Creates a Quest with a question, an index, and x and y coordinates.
+    */
+    public Quest(String question, int x, int y, int z){
+    description=question;
     yCoordinate=y;
     xCoordinate=x;
     id=z;
     }
+    
     public int getId(){
         
         return id;
     }
   
-    
+    /*
+    Paints a white Quest.
+    */
     public void paint(Graphics g){
         g.setColor(Color.WHITE);
         g.drawString(description, xCoordinate, yCoordinate);
         
     }
+    
+
     public void update(int x,Graphics g ){
         if(x==id)
             paint(g);
     }
     
-    public void remove(Graphics g){
-        g.clearRect(xCoordinate, yCoordinate, 700, 500);
-    }
+//    public void remove(Graphics g){
+//        g.clearRect(xCoordinate, yCoordinate, 700, 500);
+//    }
     
-    public void mouseClicked(MouseEvent evt){
-        int x = evt.getX();
-        int y = evt.getY();
-
-        if (evt.getClickCount() >= 2) {
-          
-        }
-    }
-    
-    public void mouseMoved(MouseEvent evt) {
-    int x = evt.getX();
-    int y = evt.getY();
-
-    
-    if (true)
-      return;
-    else
-      return;
-  }
 
     public boolean isCompleted(){
         return completed;
         
     }
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+  
+    /*
+    Checks if user-inputted answer is correct.
+    */
     public boolean isCorrect(String s){
         for (String answer : answers){
-            if (answer.equals(s))
+            if (answer.equals(s)){
                 completed=true;
             for(QuestBox q:LevelOne.getBoxes()){
                 if(this.getId()==q.getId())
                     q.deactivate();
-                    
+            }
             }
                 return true;
         }
         return false;
     }
+
+    public String getDescription() {
+        return description;
+    }
     
+     
     }
