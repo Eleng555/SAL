@@ -75,7 +75,7 @@ public class QuestBox extends Platform{
         int ballY = c.getY();
         int radius = c.getRadius();
         //checks if ball is within platform, if yes, reposition and reverse direction
-        if (ballX + radius  >= x && ballX <= x + width/2 && ballY >= y && ballY + radius + radius <= y + height ){
+        if (ballX + radius -15  >= x && ballX <= x + width/2 && ballY >= y && ballY + radius + radius <= y + height ){
             double newDx = c.getDx();
             //if (c.getDx () < 0)
             //c.setX(x - radius - 1);
