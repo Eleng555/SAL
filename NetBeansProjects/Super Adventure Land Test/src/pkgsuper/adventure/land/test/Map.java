@@ -31,14 +31,18 @@ public class Map extends Applet implements Runnable, KeyListener{
     private Graphics doubleBuffer;
     
     @Override
-    //initializes applet, called first
+    /*
+    Initializes the applet, is called first.
+    */
     public void init() {
         setSize(800, 600); //sets window size
         setBackground(Color.DARK_GRAY);
         addKeyListener(this);
     }
 
-    //called after init method
+    /*
+    Is called after the init method.
+    */
     public void start() {
         c = new Character();
         for (int i = 0; i < p.length; i++){ //randomly places the 7 platforms
@@ -46,13 +50,15 @@ public class Map extends Applet implements Runnable, KeyListener{
             p[i] = new Platform(200 * i, getHeight() - 40 - r.nextInt(400));
         }
         h = new HealthBar(c);
-        t = new KeepTime(60);
+        t = new KeepTime(5);
         l = new LevelLabel("#");
         thread1 = new Thread(this); //this refers to the run method defined below
         thread1.start();
     }
     
-    //used in the start method for the thread
+    /*
+    Used to update the Thread and everything it contains.
+    */
     @Override
     public void run() {
         //thread information
@@ -83,8 +89,11 @@ public class Map extends Applet implements Runnable, KeyListener{
         
     }
 
+    /*
+    Implements double buffering to get rid of the flickering when painting.
+    */
     @Override
-    public void update(Graphics g) { //double buffering, prevents flickering when painting
+    public void update(Graphics g) {
         if(i == null){
             i = createImage(this.getSize().width, this.getSize().height);
             doubleBuffer = i.getGraphics();
@@ -97,7 +106,9 @@ public class Map extends Applet implements Runnable, KeyListener{
     }
 
     
-    
+    /*
+    Paints all the objects.
+    */
     @Override
     public void paint(Graphics g) {
         for (int i = 0; i < p.length; i++){
@@ -108,7 +119,9 @@ public class Map extends Applet implements Runnable, KeyListener{
         t.paint(g);
         c.paint(g);
     }
-    
+    /*
+    Keyboard controls, used to move the Character around the map with the arrow keys.
+    */
     @Override
     public void keyPressed(KeyEvent e){
         switch(e.getKeyCode()){ //KeyCode returns int of key pressed
@@ -129,20 +142,7 @@ public class Map extends Applet implements Runnable, KeyListener{
 
     @Override
     public void keyReleased(KeyEvent e) {
-    switch(e.getKeyCode()){
-        case KeyEvent.VK_LEFT:
-            c.setDx(0);
-            break;
-        case KeyEvent.VK_RIGHT:
-            c.setDx(0);
-            break;
-        case KeyEvent.VK_UP:
-            c.setDy(0);
-            break;
-        case KeyEvent.VK_DOWN:
-            c.setDy(0);
-            break;
-        }
+   
     }
 
     @Override
