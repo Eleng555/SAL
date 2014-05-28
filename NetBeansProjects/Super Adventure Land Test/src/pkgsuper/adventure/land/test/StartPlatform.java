@@ -12,6 +12,9 @@ package pkgsuper.adventure.land.test;
  */
 public class StartPlatform extends Platform {
 
+    /*
+    Creates Platform user should start on.
+    */
     public StartPlatform(int x, int y) {
         super(x,y);
     }
